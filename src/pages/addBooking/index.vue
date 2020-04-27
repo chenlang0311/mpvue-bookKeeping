@@ -57,35 +57,9 @@
         </ul>
         </scroll-view>
       </swiper-item>
-
-      
     </swiper>
 
     <keyboard @bindSubmit="bindSubmit" :reset.sync="resetKeyBoard"></keyboard>
-
-    <!-- <div class="input-wrap" :style="'bottom:' + inputBottom +'px'" v-show="showInput">
-          <input type="digit" class="digit-input" 
-          @focus="focus" 
-          @blur="blur" 
-          :value="price"
-          :adjust-position='false'
-          :focus="showInput"
-          placeholder="请输入金额"
-          maxlength="10"
-          @input="inputs"
-          >
-          <div class="select-date" @click="bindCalendar">
-            <p v-if="selectDate" class="format-select-date">
-              <span class="year">{{recordYear}}</span>
-              <span>{{recordMonth + '/' + recordDay}}</span>
-            </p>
-            <i v-else class="iconfont icon-rili" style="line-height: 110rpx; text-align: center; font-size: 50rpx"></i>
-            <time-picker @change="bindTimePicker" :showInput.sync="showInput" :date.sync="selectDate" mode="head" fields="day"></time-picker>
-          </div>
-          <p class="submit" @click="submit">完成</p>
-        </div> -->
-
-    <!-- <tab-bar :selectNavIndex="1"></tab-bar> -->
   </div>
 </template>
 

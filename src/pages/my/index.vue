@@ -7,11 +7,11 @@
 
       <div class="my-info">
         <div class="my-info-item my-info-item-1">
-          <div class="item-top">0</div>
+          <div class="item-top">{{days}}</div>
           <div class="item-bottom">记账天数</div>
         </div>
         <div class="my-info-item my-info-item-2">
-          <div class="item-top">0</div>
+          <div class="item-top">{{counts}}</div>
           <div class="item-bottom">记账笔数</div>
         </div>
       </div>
@@ -21,19 +21,23 @@
           <p class="list-item-left"><i class="iconfont icon--biaodanfenlei"></i>类别设置</p>
           <p class="list-item-right"><i class="iconfont icon-Icons_ToolBar_ArrowRight"></i></p>
         </div>
+        <button open-type="share" class="list-item btn-item">
+          <p class="list-item-left"><img src="/static/images/share.png" class="share-img" alt="">分享给好友</p>
+          <p class="list-item-right"><i class="iconfont icon-Icons_ToolBar_ArrowRight"></i></p>
+        </button>
         <!-- <div class="list-item" @click="navigateTo('')">
           <p class="list-item-left"><i class="iconfont icon--biaodanfenlei"></i>年度账单</p>
           <p class="list-item-right"><i class="iconfont icon-Icons_ToolBar_ArrowRight"></i></p>
         </div> -->
       </div>
 
-    <tab-bar :selectNavIndex="4"></tab-bar>
+    <tab-bar :selectNavIndex="2"></tab-bar>
   </div>
 </template>
 
 <script>
 import tabBar from '@/components/tabBar'
-
+import { getAccountingDaysNCounts } from '@/utils/api'
 export default {
   components: {
     tabBar
@@ -41,7 +45,8 @@ export default {
 
   data () {
     return {
-      
+      counts:0,
+      days: 0
     }
   },
   methods: {
@@ -52,13 +57,33 @@ export default {
           icon: 'none'
         })
       }
-       wx.navigateTo({
+      wx.navigateTo({
         url
       })
     },
   },
-  created () {
+  onShow(){
+    this.getDayAndCount()
+  },
+  async created () {
     
+  },
+  methods:{
+    async getDayAndCount(){
+      let res = await getAccountingDaysNCounts()
+      if(res.statusCode === 200){
+        this.days = res.data.days;
+        this.counts = res.data.counts
+      }else{
+        wx.showToast({
+          title: res.message,
+          icon: 'none'
+        })
+      }
+    }
+  },
+  onShareAppMessage (){
+
   }
 }
 </script>
@@ -124,7 +149,8 @@ export default {
     line-height 100px
     font-size 30px
     .list-item-left
-      display flex
+      display flex;
+      align-items center
       .iconfont
         margin-right 10px
         line-height: 100px; 
@@ -138,5 +164,15 @@ export default {
           font-size: 30px; 
           color: #888
     &:last-child
-      border none
+      border none!important
+  .btn-item
+    padding 0;
+    background-color #fff;
+    &:after
+      border none!important
+    .share-img
+      height 40rpx
+      width 40rpx
+      margin-right 10px
+  
 </style>

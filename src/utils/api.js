@@ -1,6 +1,6 @@
 import http from  './fly'
 
-// export const getIndex = params => { return http.get('/index/', params)};
+export const getAccountingDaysNCounts = params => { return http.get('/accounting/getAccountingDaysNCounts', params)};
 
 // 新增记账记录
 export const addRecord = params => { return http.post('/accounting/addRecord', params)};
