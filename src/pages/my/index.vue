@@ -61,14 +61,6 @@ export default {
         url
       })
     },
-  },
-  onShow(){
-    this.getDayAndCount()
-  },
-  async created () {
-    
-  },
-  methods:{
     async getDayAndCount(){
       let res = await getAccountingDaysNCounts()
       if(res.statusCode === 200){
@@ -81,6 +73,12 @@ export default {
         })
       }
     }
+  },
+  onShow(){
+    this.getDayAndCount()
+  },
+  async created () {
+    
   },
   onShareAppMessage (){
 
